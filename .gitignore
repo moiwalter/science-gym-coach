@@ -1,0 +1,11 @@
+# datos personales del usuario (la skill se publica vacía)
+engine/data.json
+engine/recovery.md
+engine/readiness.json
+engine/log.md
+engine/tracker.md
+engine/block-state.md
+engine/hoy.md
+__pycache__/
+*.pyc
+.DS_Store

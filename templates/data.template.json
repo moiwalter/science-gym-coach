@@ -1,0 +1,26 @@
+{
+  "_meta": {
+    "descripcion": "Fuente de verdad estructurada. La verdad de QUÉ/CUÁNDO entrenaste es tu log — esto solo computa sobre eso.",
+    "unidades": "kg"
+  },
+  "athlete": {
+    "nombre": "TU_NOMBRE",
+    "objetivo": "hipertrofia | fuerza | recomposición",
+    "fase": "bulk | cut | mantenimiento"
+  },
+  "block": { "start": "YYYY-MM-DD", "semanas": 12, "fase": "acumulación" },
+  "schedule": {
+    "_comment": "Tu split. Los TIPOS deben coincidir con MUSCLE_BY_TYPE en gym.py. Ejemplo split de 5 días:",
+    "lun": "UPPER", "mar": "LOWER", "mie": "PUSH", "jue": "PULL", "vie": "LEGS",
+    "sab": "rest", "dom": "rest"
+  },
+  "cut": {
+    "activo": false,
+    "objetivo_pct_grasa": null,
+    "ritmo_pct_peso_semana": 0.7,
+    "proteina_g_por_kg_masa_magra": [2.3, 3.1]
+  },
+  "bodyweight": [],
+  "sessions": [],
+  "last_by_type": {}
+}
