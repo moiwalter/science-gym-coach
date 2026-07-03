@@ -39,6 +39,10 @@ Run `python3 engine/gym.py compute` → `next_targets[TYPE]`. Every exercise ret
 - **series × rep-range × weight** — always explicit.
 - **meta** — self-explained: what you did last time + the double-progression trigger ("when you hit the top reps in all sets → +increment").
 
+### Rendering rule — FIXED format, verbatim metas
+
+`hoy.md` always follows `templates/hoy.template.md`: one heading per exercise (`## X · Name — sets×reps · weight`), the `meta` string from `gym.py compute` **copied verbatim** (the assistant never rewrites it — rewording is where inconsistency is born), and one checkbox per set (`- ☐ ____ × ____`, narrow = phone-readable). Whatever the assistant shows in chat is a **literal copy of the file**, never a parallel re-rendering.
+
 ## Autoregulation (§10)
 
 `readiness` maps the recovery score to a directive: 🟢 (≥67) push, 0–1 RIR, add load · 🟡 (34–66) as written, 2 RIR, hold load · 🔴 (<34) lighter: ~40% fewer sets, RIR 3–4, or weak-points/Zone 2/rest. Adjust **load**, and — if the user trains daily — never skip; rotate the split so each muscle still gets 48h.
