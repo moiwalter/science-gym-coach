@@ -41,7 +41,17 @@ Run `python3 engine/gym.py compute` → `next_targets[TYPE]`. Every exercise ret
 
 ### Rendering rule — FIXED format, verbatim metas
 
-`hoy.md` always follows `templates/hoy.template.md`: one heading per exercise (`## X · Name — sets×reps · weight`), the `meta` string from `gym.py compute` **copied verbatim** (the assistant never rewrites it — rewording is where inconsistency is born), and one checkbox per set (`- ☐ ____ × ____`, narrow = phone-readable). Whatever the assistant shows in chat is a **literal copy of the file**, never a parallel re-rendering.
+`hoy.md` always follows `templates/hoy.template.md` — the **whole skeleton is fixed**, same sections in the same order, every session:
+
+1. Frontmatter with `generado:` provenance (which commands were run + which past session the targets compare against).
+2. `# {emoji} {TYPE} · {focus muscles}` title.
+3. **Why {TYPE}** — 1–2 lines from `gym.py next`: deficit + recovery + what's excluded and why.
+4. **Bodyweight** blank.
+5. One readiness line: `> {🟢/🟡/🔴} **READINESS {pct}%** ({date} · trend {a→b→c}) → {directive from gym.py readiness, VERBATIM}.`
+6. One heading per exercise (`## X · Name — sets×reps · weight`), the `meta` string from `gym.py compute` **copied verbatim** (the assistant never rewrites it — rewording is where inconsistency is born), one checkbox per set (`- ☐ ____ × ____`, narrow = phone-readable).
+7. `> **Goal #1 today:** …` (the session's overload, from the targets) + `> **Notes:**`.
+
+Whatever the assistant shows in chat is a **literal copy of the file**, never a parallel re-rendering. If the recovery score arrives **after** the sheet was generated (user scores on waking), update **only the readiness line, keeping the exact format** — don't restyle it; the directive always comes verbatim from `gym.py readiness`, never paraphrased.
 
 ## Autoregulation (§10)
 
