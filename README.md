@@ -11,6 +11,57 @@ The idea: an AI coach shouldn't improvise your training. So here the **decisions
 - **Readiness autoregulation, wearable optional.** Bakes a recovery score into the session (🟢 push / 🟡 hold / 🔴 lighter). Use a WHOOP export *or* a 3-question self-check (sleep / energy / soreness).
 - **Every rule is cited and tiered.** The knowledge base carries the primary references (Pelland 2026, Robinson 2024, Schoenfeld, Helms 2014, …), each verified against the source, tagged **A** (strong) / **B** (moderate) / **C** (heuristic).
 
+## How a day looks
+
+You ask your assistant **"what do I train today?"**. It runs the engine and hands you one session sheet (`hoy.md`) — always the same fixed format, readable on your phone at the gym:
+
+```markdown
+# 🔥 LEGS · glutes + hamstrings + calves
+
+**Why LEGS:** glutes 0 sets in 7 days, calves 3 — most behind AND recovered (≥48h).
+Chest trained yesterday → no pushing today.
+
+**Bodyweight:** ____ kg
+
+> 🟢 **READINESS 73%** (2026-07-03 · trend 57→38→73) → PUSH: top sets 0–1 RIR,
+> add load if you hit the top reps.
+
+## A · Hip Thrust — 3×10–12 · 20kg/side
+Hold 20kg/side for all 3 sets and chase 12 reps in ALL of them. Last time: 12, 10
+(only 2 of 3 sets). When you hit 12 in all 3 → 25kg.
+- ☐ ____ × ____
+- ☐ ____ × ____
+- ☐ ____ × ____
+
+> **Goal #1 today:** complete ALL sets — full sets ARE today's overload, not more weight.
+```
+
+You tick boxes and write weights at the gym. When you're done you paste your numbers (even messy voice-dictated ones — *"20 side x12 x11 x10, curl 50 x12x12x10"*) and say **"log it"**. The assistant parses, logs, compares against last time (double progression), updates your progress files, and has tomorrow's answer ready.
+
+That's the whole loop: **ask → train → paste → repeat.**
+
+## Quick start
+
+1. **Clone the repo** and open it with your AI assistant (e.g. `claude` inside the folder).
+2. **Tell it: "onboard me"** — it should follow `ONBOARDING.md`: a 5-minute conversation (goal, split, readiness source, 1–2 recent sessions). You talk; it fills `engine/data.json`. No wearable required.
+3. **Verify:** `python3 engine/gym.py reconcile` → `ok: true`.
+4. **Ask: "what do I train today?"** — and you're running.
+
+Works from day one; gets smarter as you log.
+
+## What's in the repo
+
+| File | What it is |
+|------|-----------|
+| `SKILL.md` | Entry point for the AI assistant — what this skill does and how to use it |
+| `workflow.md` | The operating manual: agent flow, ground rules, fixed rendering format |
+| `engine/gym.py` | The deterministic engine — all math and decisions live here |
+| `engine/data.json` | *(you create it)* Your log: sessions, sets, bodyweight — the source of truth |
+| `knowledge-base.md` | The cited science every recommendation traces back to (§ numbered) |
+| `science-agent.md` | The evidence-auditor role: any quantitative claim must cite the KB |
+| `ONBOARDING.md` | The 5-minute conversational setup |
+| `templates/` | Fixed formats for the session sheet (`hoy`), log, tracker, progress files |
+
 ## The engine
 
 ```bash
@@ -22,13 +73,21 @@ python3 engine/gym.py reconcile   # integrity check across the data files
 python3 engine/gym.py all --json  # everything, structured
 ```
 
-## Quick start
+## Ground rules (what keeps the AI honest)
 
-1. Copy `templates/data.template.json` → `engine/data.json`, set your split and log a couple of sessions (see `ONBOARDING.md`).
-2. Point your AI assistant at `SKILL.md` + `workflow.md`.
-3. Ask: *"what do I train today?"* / *"log my session"* / *"give me my targets."*
+These are baked into `workflow.md` — if you fork this, keep them:
 
-No wearable required. Works from day one; gets smarter as you log.
+1. **Your log is the source of truth** for what/when you trained — never the wearable, never the calendar, never the AI's memory.
+2. **The engine decides, the assistant translates.** Next session = `gym.py next`. Targets = `gym.py compute`, copied **verbatim** — the assistant never re-words a prescription (re-wording is where drift is born).
+3. **Fixed delivery format.** Every session sheet follows `templates/hoy.template.md` — same sections, same order, every time. What the assistant shows in chat is a literal copy of the file.
+4. **Every quantitative rule cites the knowledge base** (§ + evidence tier). If it can't cite it, it doesn't prescribe it.
+5. **Never guess dates.** The assistant asks which day a session was; it never infers it.
+
+## Customizing
+
+- **Your split:** edit `schedule` in `engine/data.json`; session types must exist in `MUSCLE_BY_TYPE` in `engine/gym.py` (add your own with its muscles).
+- **Volume targets, rep ranges, increments:** constants at the top of `engine/gym.py`, each traceable to a KB section.
+- **Units:** kg or lb, set at onboarding.
 
 ## Science
 
