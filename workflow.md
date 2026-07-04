@@ -48,7 +48,7 @@ Run `python3 engine/gym.py compute` → `next_targets[TYPE]`. Every exercise ret
 3. **Why {TYPE}** — 1–2 lines from `gym.py next`: deficit + recovery + what's excluded and why.
 4. **Bodyweight** blank.
 5. One readiness line: `> {🟢/🟡/🔴} **READINESS {pct}%** ({date} · trend {a→b→c}) → {directive from gym.py readiness, VERBATIM}.`
-6. One heading per exercise (`## X · Name — sets×reps · weight`), the `meta` string from `gym.py compute` **copied verbatim** (the assistant never rewrites it — rewording is where inconsistency is born), one checkbox per set (`- ☐ ____ × ____`, narrow = phone-readable).
+6. **One TABLE with all exercises** — columns `# · Exercise · sets×reps · weight | Target | TODAY (weight×reps per set)`. The `meta` string from `gym.py compute` goes in the Target column **copied verbatim** (the assistant never rewrites it — rewording is where inconsistency is born); the TODAY column stays blank for the user to fill. (Tables replaced the earlier one-heading-per-exercise checkbox layout: they fill cleaner and scan faster.)
 7. `> **Goal #1 today:** …` (the session's overload, from the targets) + `> **Notes:**`.
 
 Whatever the assistant shows in chat is a **literal copy of the file**, never a parallel re-rendering. If the recovery score arrives **after** the sheet was generated (user scores on waking), update **only the readiness line, keeping the exact format** — don't restyle it; the directive always comes verbatim from `gym.py readiness`, never paraphrased.
