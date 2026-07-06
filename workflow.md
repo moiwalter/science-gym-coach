@@ -39,19 +39,19 @@ Run `python3 engine/gym.py compute` → `next_targets[TYPE]`. Every exercise ret
 - **series × rep-range × weight** — always explicit.
 - **meta** — self-explained: what you did last time + the double-progression trigger ("when you hit the top reps in all sets → +increment").
 
-### Rendering rule — FIXED format, verbatim metas
+### Rendering rule — FIXED format v3, verbatim metas
 
-`hoy.md` always follows `templates/hoy.template.md` — the **whole skeleton is fixed**, same sections in the same order, every session:
+`hoy.md` always follows `templates/hoy.template.md` — the **whole skeleton is fixed and deterministic**: 5 numbered sections, same order every session, and **each section header declares its utility** (what it is + what it's for), so the athlete always reads the same map without re-parsing a new layout:
 
 1. Frontmatter with `generado:` provenance (which commands were run + which past session the targets compare against).
-2. `# {emoji} {TYPE} · {focus muscles}` title.
-3. **Why {TYPE}** — 1–2 lines from `gym.py next`: deficit + recovery + what's excluded and why.
-4. **Bodyweight** blank.
-5. One readiness line: `> {🟢/🟡/🔴} **READINESS {pct}%** ({date} · trend {a→b→c}) → {directive from gym.py readiness, VERBATIM}.`
-6. **One TABLE with all exercises** — columns `# · Exercise · sets×reps · weight | Target | TODAY (weight×reps per set)`. The `meta` string from `gym.py compute` goes in the Target column **copied verbatim** (the assistant never rewrites it — rewording is where inconsistency is born); the TODAY column stays blank for the user to fill. (Tables replaced the earlier one-heading-per-exercise checkbox layout: they fill cleaner and scan faster.)
-7. `> **Goal #1 today:** …` (the session's overload, from the targets) + `> **Notes:**`.
+2. `# {emoji} {TYPE} · DAY {n} · {weekday DD-mmm}` title.
+3. `## 1 · WHAT'S UP — why this session and not another (decided by gym.py next)` — session + reason (volume deficit + recovery + what's excluded) + block phase and what it implies today.
+4. `## 2 · TRAFFIC LIGHT — how hard to push today (readiness only)` — one score line: `{🟢/🟡/🔴} **{pct}%** ({date} · trend {a→b→c}) → {directive from gym.py readiness, VERBATIM}`, plus the fixed rule line (🟢 push · 🟡 hold, 2 RIR · 🔴 light version, still train).
+5. `## 3 · THE SESSION — Target = what to beat · TODAY = you fill weight×reps` — **one TABLE with all exercises**, columns `# · Exercise · sets×reps · weight | Target | TODAY`. The `meta` string from `gym.py compute` goes in the Target column **copied verbatim** (the assistant never rewrites it — rewording is where inconsistency is born); the TODAY column stays blank for the user to fill. (Tables replaced the earlier checkbox layout: they fill cleaner and scan faster.)
+6. `## 4 · GOAL #1 — if you only achieve one thing today, it's this` — the session's single overload priority, from the targets.
+7. `## 5 · WHEN DONE — close the loop` — bodyweight blank + notes + "tell your assistant *done* and it archives". Bodyweight lives here (it's an output of the session, not an input).
 
-Whatever the assistant shows in chat is a **literal copy of the file**, never a parallel re-rendering. If the recovery score arrives **after** the sheet was generated (user scores on waking), update **only the readiness line, keeping the exact format** — don't restyle it; the directive always comes verbatim from `gym.py readiness`, never paraphrased.
+Whatever the assistant shows in chat is a **literal copy of the file**, never a parallel re-rendering. If the recovery score arrives **after** the sheet was generated (user scores on waking), update **only the score line in section 2, keeping the exact format** — don't restyle it; the directive always comes verbatim from `gym.py readiness`, never paraphrased.
 
 ## Autoregulation (§10)
 
