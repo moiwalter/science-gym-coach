@@ -16,27 +16,33 @@ The idea: an AI coach shouldn't improvise your training. So here the **decisions
 You ask your assistant **"what do I train today?"**. It runs the engine and hands you one session sheet (`hoy.md`) — always the same fixed format, readable on your phone at the gym:
 
 ```markdown
-# 🔥 LEGS · glutes + hamstrings + calves
+# 🔥 LEGS · DAY 5 · Fri 03-jul
 
-**Why LEGS:** glutes 0 sets in 7 days, calves 3 — most behind AND recovered (≥48h).
-Chest trained yesterday → no pushing today.
+## 1 · WHAT'S UP — why this session and not another (decided by gym.py next)
+- **Session:** LEGS (glutes + hamstrings + calves)
+- **Reason:** glutes 0 sets in 7 days, calves 3 — most behind AND recovered (≥48h).
+  Chest trained yesterday → no pushing today.
+- **Phase:** week 3/12 · ACCUMULATION — add load where compute orders it.
 
-**Bodyweight:** ____ kg
+## 2 · TRAFFIC LIGHT — how hard to push today (readiness only)
+- 🟢 **73%** (2026-07-03 · trend 57→38→73) → PUSH: top sets 0–1 RIR, add load
+  if you hit the top reps.
+- Rule: 🟢 push, add load · 🟡 keep load, 2 RIR · 🔴 light version, still train.
 
-> 🟢 **READINESS 73%** (2026-07-03 · trend 57→38→73) → PUSH: top sets 0–1 RIR,
-> add load if you hit the top reps.
+## 3 · THE SESSION — Target = what to beat · TODAY = you fill weight×reps
+| # | Exercise · sets×reps · weight | Target | TODAY |
+|---|-------------------------------|--------|-------|
+| A | **Hip Thrust** · 3×10–12 · **20kg/side** | Hold 20kg/side for all 3 sets and chase 12 reps in ALL. Last time: 12, 10 (only 2 of 3 sets). When you hit 12 in all 3 → 25kg. | |
 
-## A · Hip Thrust — 3×10–12 · 20kg/side
-Hold 20kg/side for all 3 sets and chase 12 reps in ALL of them. Last time: 12, 10
-(only 2 of 3 sets). When you hit 12 in all 3 → 25kg.
-- ☐ ____ × ____
-- ☐ ____ × ____
-- ☐ ____ × ____
+## 4 · GOAL #1 — if you only achieve one thing today, it's this
+- Complete ALL sets — full sets ARE today's overload, not more weight.
 
-> **Goal #1 today:** complete ALL sets — full sets ARE today's overload, not more weight.
+## 5 · WHEN DONE — close the loop
+- **Bodyweight:** ____ kg · **Notes:**
+- Tell your assistant **"done"** and it archives.
 ```
 
-You tick boxes and write weights at the gym. When you're done you paste your numbers (even messy voice-dictated ones — *"20 side x12 x11 x10, curl 50 x12x12x10"*) and say **"log it"**. The assistant parses, logs, compares against last time (double progression), updates your progress files, and has tomorrow's answer ready.
+You fill the TODAY column at the gym. When you're done you paste your numbers (even messy voice-dictated ones — *"20 side x12 x11 x10, curl 50 x12x12x10"*) and say **"log it"**. The assistant parses, logs, compares against last time (double progression), updates your progress files, and has tomorrow's answer ready.
 
 That's the whole loop: **ask → train → paste → repeat.**
 
@@ -49,6 +55,8 @@ That's the whole loop: **ask → train → paste → repeat.**
 
 Works from day one; gets smarter as you log.
 
+**Already running an older version?** `git pull` and tell your assistant **"we just updated — follow `UPGRADING.md`"**. It upgrades the system (engine, templates, rules) while leaving your data (log, PRs, customizations) untouched, and briefs you on what changed.
+
 ## What's in the repo
 
 | File | What it is |
@@ -60,6 +68,7 @@ Works from day one; gets smarter as you log.
 | `knowledge-base.md` | The cited science every recommendation traces back to (§ numbered) |
 | `science-agent.md` | The evidence-auditor role: any quantitative claim must cite the KB |
 | `ONBOARDING.md` | The 5-minute conversational setup |
+| `UPGRADING.md` | Assistant instructions for **updating an existing install** after a `git pull` — what upgrades, what's untouchable, format version history |
 | `templates/` | Fixed formats for the session sheet (`hoy`), log, tracker, progress files |
 
 ## The engine

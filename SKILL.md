@@ -19,6 +19,7 @@ A portable, evidence-based training system. The **math and the decisions live in
 ## How to use it (assistant instructions)
 
 1. **Read `workflow.md` first** — it's the operating manual (the agent flow + Principle #0: the user's log is the source of truth for what/when they trained).
+   *If the user just pulled a new version of this repo over an existing install, read `UPGRADING.md` before anything else — it's an update, not a fresh setup: system files upgrade, user data never does.*
 2. **Before prescribing:** run `python3 engine/gym.py readiness` (WHOOP export or `readiness.json` self-check).
 3. **To pick the session:** run `python3 engine/gym.py next` → take `recomendado` + `readiness` + `ataca`/`ojo`.
 4. **To fill targets:** run `python3 engine/gym.py compute` → `next_targets` for that type.
@@ -38,6 +39,7 @@ Copy `templates/data.template.json` → `engine/data.json` and fill your split +
 | `science-agent.md` | the evidence authority — how every decision is justified + evidence tiers |
 | `workflow.md` | the operating manual / agent flow |
 | `ONBOARDING.md` | conversational setup |
+| `UPGRADING.md` | how to update an existing install (system upgrades, data survives) |
 | `templates/` | data + log + tracker + block-state + hoy scaffolds |
 
 > ⚕️ Educational, not medical advice. Consult a professional for injury, illness, or medical conditions.
