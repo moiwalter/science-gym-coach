@@ -24,7 +24,8 @@ A portable, evidence-based training system. The **math and the decisions live in
 3. **To pick the session:** run `python3 engine/gym.py next` → take `recomendado` + `readiness` + `ataca`/`ojo`.
 4. **To fill targets:** run `python3 engine/gym.py compute` → `next_targets` for that type.
 5. **Always cite** the knowledge-base section + tier (A/B/C) — see `science-agent.md`.
-6. **After any write to the data:** run `python3 engine/gym.py reconcile`; fix if `ok:false`.
+6. **To log a session:** parse the user's input into a session JSON, then `python3 engine/gym.py log <session.json>` (the engine writes `data.json` — you never hand-edit it). Bodyweight: `gym.py peso <kg>`. Regenerate the tracker: `gym.py render-tracker`.
+7. **After any write to the data:** run `python3 engine/gym.py reconcile`; fix if `ok:false`. After any engine edit: `python3 engine/gym.py selftest`.
 
 ## Setup
 

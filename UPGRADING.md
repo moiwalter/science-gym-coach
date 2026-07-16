@@ -80,6 +80,15 @@ Use this to identify which version a user is coming from and what the jump means
 
 (When you ship a format change in a fork, add a row here — this table is the migration contract.)
 
+### Engine capability history (`engine/gym.py`)
+
+New engine logic wins on upgrade; the user's constants and data survive untouched (§2).
+
+| Version | Since | What's new | Migration note |
+|---------|-------|-----------|----------------|
+| **e1** | initial release | Read/decide path: `readiness` · `next` · `compute` · `trajectory` · `reconcile`. | — |
+| **e2** | 2026-07-16 | **Write path + reliability:** `log` (validate + append a session, recompute `last_by_type`) · `peso` (bodyweight) · `render-tracker` (regenerate `tracker.md`) · `selftest` (25 checks). Per-exercise `equip` (implement = own progression line) and `inc` override (force a real-gym increment, e.g. a calf with no 2.5 kg plates). | Purely additive — no existing command or data shape changed. The assistant should now write sessions via `gym.py log` instead of hand-editing `data.json`. Run `gym.py selftest` after any engine edit. |
+
 ---
 
 ## 4 · What an upgrade must NEVER do
